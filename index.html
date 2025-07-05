@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walmart Sales Dashboard Banner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .banner {
+            width: 100%;
+            max-width: 1200px;
+            height: 400px;
+            background: linear-gradient(135deg, #0052cc 0%, #004080 50%, #003366 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .banner::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .content {
+            flex: 1;
+            z-index: 2;
+            position: relative;
+        }
+
+        .title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #b3d9ff;
+            margin-bottom: 20px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .features {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .feature-tag {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 25px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .feature-tag:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .tech-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .visual-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .dashboard-mockup {
+            width: 350px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-mockup:hover {
+            transform: scale(1.05);
+        }
+
+        .chart-area {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            height: 120px;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 10px;
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            padding: 10px;
+        }
+
+        .bar {
+            width: 20px;
+            background: linear-gradient(to top, #00ff88, #00cc70);
+            border-radius: 3px 3px 0 0;
+            animation: grow 2s ease-in-out infinite alternate;
+        }
+
+        .bar:nth-child(1) { height: 60%; animation-delay: 0s; }
+        .bar:nth-child(2) { height: 80%; animation-delay: 0.3s; }
+        .bar:nth-child(3) { height: 45%; animation-delay: 0.6s; }
+        .bar:nth-child(4) { height: 90%; animation-delay: 0.9s; }
+        .bar:nth-child(5) { height: 70%; animation-delay: 1.2s; }
+        .bar:nth-child(6) { height: 55%; animation-delay: 1.5s; }
+
+        .data-points {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            height: 80px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .data-point {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-icon {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 24px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-icon:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-icon:nth-child(2) { top: 20%; right: 15%; animation-delay: 1s; }
+        .floating-icon:nth-child(3) { bottom: 15%; left: 5%; animation-delay: 2s; }
+        .floating-icon:nth-child(4) { bottom: 25%; right: 10%; animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes grow {
+            0% { height: 30%; opacity: 0.7; }
+            100% { height: 100%; opacity: 1; }
+        }
+
+        .walmart-logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background: #ffc220;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: #0071ce;
+            z-index: 3;
+            box-shadow: 0 4px 20px rgba(255, 194, 32, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .banner {
+                height: auto;
+                padding: 40px 30px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .dashboard-mockup {
+                width: 280px;
+                height: 200px;
+                margin-top: 20px;
+            }
+
+            .features {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="walmart-logo">W</div>
+        
+        <div class="floating-elements">
+            <div class="floating-icon">📊</div>
+            <div class="floating-icon">💡</div>
+            <div class="floating-icon">🚀</div>
+            <div class="floating-icon">📈</div>
+        </div>
+
+        <div class="content">
+            <h1 class="title">Walmart Sales Dashboard</h1>
+            <p class="subtitle">Interactive Analytics • Real-time Data • Cloud Deployed</p>
+            
+            <div class="features">
+                <div class="feature-tag">🌍 Multi-City Analysis</div>
+                <div class="feature-tag">📊 Live MySQL</div>
+                <div class="feature-tag">🔗 Streamlit UI</div>
+                <div class="feature-tag">☁️ Cloud Hosted</div>
+            </div>
+
+            <div class="tech-stack">
+                <div class="tech-icon">PY</div>
+                <div class="tech-icon">SQL</div>
+                <div class="tech-icon">ST</div>
+                <div class="tech-icon">ML</div>
+                <div class="tech-icon">API</div>
+            </div>
+        </div>
+
+        <div class="visual-section">
+            <div class="dashboard-mockup">
+                <div class="chart-area">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <div class="data-points">
+                    <div class="data-point">Sales</div>
+                    <div class="data-point">Cities</div>
+                    <div class="data-point">Products</div>
+                    <div class="data-point">Trends</div>
+                    <div class="data-point">Insights</div>
+                    <div class="data-point">Reports</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
