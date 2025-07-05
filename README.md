@@ -1,6 +1,6 @@
 # 🛒 Walmart Sales Analytics Dashboard
 
-![Walmart Sales Dashboard](assets/banner.png)
+![Walmart Sales Dashboard](assests/banner.png)
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://walmartsalesdashboard-bg3n6f3apjd2nnahatzeqc.streamlit.app/)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
